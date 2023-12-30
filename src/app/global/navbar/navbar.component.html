@@ -1,0 +1,214 @@
+<mat-toolbar class="mat-elevation-z8">
+    <div *ngIf="isLoggedIn">
+        <button mat-icon-button *ngIf="sidenav.mode === 'over' " (click)="sidenav.toggle()">
+            <mat-icon *ngIf="!sidenav.opened && isLoggedIn"> menu </mat-icon>
+            <mat-icon *ngIf="sidenav.opened && isLoggedIn "> close </mat-icon>
+        </button>
+    </div>
+    Bricks-Funds
+
+    <span class="example-spacer"></span>
+
+
+
+    <a *ngIf="isLoggedIn" (click)="logOut()" mat-icon-button class="example-icon"
+        aria-label="Example icon-button with share icon">
+        Logout
+    </a>
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" style="max-height: 100vh" class="mat-elevation-z8">
+
+        <div *ngIf="isLoggedIn">
+            <img class="avatar mat-elevation-z8"
+                src="https://www.pngfind.com/pngs/m/34-349693_circled-user-icon-transparent-background-username-icon-hd.png" />
+
+            <h4 class="name">{{loginService.getUser().username}}</h4>
+
+            <mat-divider></mat-divider>
+
+            <div *ngIf="role == 'NORMAL'">
+
+
+                <mat-nav-list>
+
+                    <mat-list-item class="jod" routerLink="">
+                        <mat-icon>dashboard</mat-icon><span>Dashboard</span>
+                    </mat-list-item>
+                    <mat-expansion-panel [class.mat-elevation-z0]="true">
+                        <mat-expansion-panel-header class="header">
+                            <mat-icon> next_week </mat-icon>
+                            <span style="margin-top: 2px;margin-left: 3px;">Referral
+                                Master</span>
+                        </mat-expansion-panel-header>
+
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="/admin/enable">
+                                <mat-icon>verified_user</mat-icon><span>Enable</span>
+                            </a>
+                            <a mat-list-item routerLink="/admin/employee-details">
+                                <mat-icon>group</mat-icon>
+                                <span>User Details</span>
+                            </a>
+
+
+
+
+
+                        </mat-nav-list>
+
+                    </mat-expansion-panel>
+                </mat-nav-list>
+
+
+            </div>
+
+
+            <!----Admin -->
+
+
+            <div *ngIf="role">
+                <div *ngIf="role != 'NORMAL'">
+
+                    <!-- <div class="con">
+
+                        <ul class="l">
+
+                            <li> <button mat-button class="menu-button" routerLink="/admin/enable">
+                                    <mat-icon>person</mat-icon>
+                                    <span>EmployeeMaster</span>
+                                </button>
+
+                                <ul style="list-style: none;">
+                                    <li>
+                                        <a>Hatib</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                        
+                    </div> -->
+
+                    <mat-nav-list>
+
+                        <mat-list-item class="jod" routerLink="/signup">
+                            <mat-icon>dashboard</mat-icon><span>Dashboard</span>
+                        </mat-list-item>
+
+                        <mat-expansion-panel [class.mat-elevation-z0]="true">
+                            <mat-expansion-panel-header class="header">
+                                <mat-icon>person</mat-icon><span style="margin-top: 2px;margin-left: 3px;">Employee
+                                    Master</span>
+                            </mat-expansion-panel-header>
+                            <mat-nav-list>
+                                <a mat-list-item routerLink="/admin/enable">
+                                    <mat-icon>verified_user</mat-icon><span>Enable</span>
+                                </a>
+                                <a mat-list-item routerLink="/admin/employee-details">
+                                    <mat-icon>group</mat-icon>
+                                    <span>EmployeeDetails</span>
+                                </a>
+
+                            </mat-nav-list>
+
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel [class.mat-elevation-z0]="true">
+                            <mat-expansion-panel-header class="header">
+                                <mat-icon> perm_contact_calendar </mat-icon>
+                                <span style="margin-top: 2px;margin-left: 3px;">Designation
+                                    Master</span>
+                            </mat-expansion-panel-header>
+                            <mat-nav-list>
+                                <mat-nav-list>
+                                    <a mat-list-item routerLink="/admin/designation">
+                                        <mat-icon> supervised_user_circle </mat-icon>
+                                        <span>Designation-Assign</span>
+                                    </a>
+                                    <a mat-list-item routerLink="/admin/get-designation">
+                                        <mat-icon> add_circle </mat-icon>
+
+                                        <span>New-Designation</span>
+                                    </a>
+
+                                </mat-nav-list>
+
+                            </mat-nav-list>
+
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel [class.mat-elevation-z0]="true">
+                            <mat-expansion-panel-header class="header">
+                                <mat-icon> domain </mat-icon>
+                                <span style="margin-top: 2px;margin-left: 3px;">Company
+                                    Master</span>
+                            </mat-expansion-panel-header>
+                            <mat-nav-list>
+                                <a mat-list-item routerLink="/admin/company-details">
+                                    <mat-icon>location_city</mat-icon><span>Company-Details</span>
+                                </a>
+
+
+                            </mat-nav-list>
+
+                        </mat-expansion-panel>
+                        <mat-expansion-panel [class.mat-elevation-z0]="true">
+                            <mat-expansion-panel-header class="header">
+                                <mat-icon> desktop_mac </mat-icon>
+                                <span style="margin-top: 2px;margin-left: 3px;">Project
+                                    Master</span>
+                            </mat-expansion-panel-header>
+                            <mat-nav-list>
+                                <a mat-list-item routerLink="/admin/project-details">
+                                    <mat-icon>category</mat-icon><span>Project-Details</span>
+                                </a>
+
+
+                            </mat-nav-list>
+
+                        </mat-expansion-panel>
+                        <mat-expansion-panel [class.mat-elevation-z0]="true">
+                            <mat-expansion-panel-header class="header">
+                                <mat-icon> next_week </mat-icon>
+                                <span style="margin-top: 2px;margin-left: 3px;">Task
+                                    Master</span>
+                            </mat-expansion-panel-header>
+                            <mat-nav-list>
+                                <a mat-list-item routerLink="/admin/task-desig">
+                                    <mat-icon>task</mat-icon><span>Task-Details</span>
+                                </a>
+
+
+                            </mat-nav-list>
+
+                        </mat-expansion-panel>
+
+
+
+                    </mat-nav-list>
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div *ngIf="isLoggedIn" class="content mat-elevation-z8">
+            <router-outlet></router-outlet>
+        </div>
+        <div *ngIf="!isLoggedIn" class="text-center">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
